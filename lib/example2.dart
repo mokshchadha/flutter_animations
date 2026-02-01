@@ -149,7 +149,10 @@ class _Example2State extends State<Example2> with TickerProviderStateMixin {
       ..forward();
     return Center(
       child: AnimatedBuilder(
-        animation: _counterClockwiseRotationAnimation,
+        animation: Listenable.merge([
+          _counterClockwiseRotationAnimation,
+          _flipAnimation,
+        ]),
         builder: (context, child) {
           return Transform(
             transform: Matrix4.identity()
@@ -158,43 +161,29 @@ class _Example2State extends State<Example2> with TickerProviderStateMixin {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                AnimatedBuilder(
-                  animation: _flipAnimation,
-                  builder: (context, child) {
-                    return Transform(
-                      transform: Matrix4.identity()
-                        ..rotateX(_flipAnimation.value),
-                      alignment: Alignment.center,
-                      child: ClipPath(
-                        clipper: HalfCircleCustomClipper(side: CircleSide.left),
-                        child: Container(
-                          width: 200,
-                          height: 200,
-                          color: Colors.blue,
-                        ),
-                      ),
-                    );
-                  },
+                Transform(
+                  transform: Matrix4.identity()..rotateX(_flipAnimation.value),
+                  alignment: Alignment.center,
+                  child: ClipPath(
+                    clipper: HalfCircleCustomClipper(side: CircleSide.left),
+                    child: Container(
+                      width: 200,
+                      height: 200,
+                      color: Colors.blue,
+                    ),
+                  ),
                 ),
-                AnimatedBuilder(
-                  animation: _flipAnimation,
-                  builder: (context, child) {
-                    return Transform(
-                      transform: Matrix4.identity()
-                        ..rotateX(_flipAnimation.value),
-                      alignment: Alignment.center,
-                      child: ClipPath(
-                        clipper: HalfCircleCustomClipper(
-                          side: CircleSide.right,
-                        ),
-                        child: Container(
-                          width: 200,
-                          height: 200,
-                          color: Colors.red,
-                        ),
-                      ),
-                    );
-                  },
+                Transform(
+                  transform: Matrix4.identity()..rotateX(_flipAnimation.value),
+                  alignment: Alignment.center,
+                  child: ClipPath(
+                    clipper: HalfCircleCustomClipper(side: CircleSide.right),
+                    child: Container(
+                      width: 200,
+                      height: 200,
+                      color: Colors.red,
+                    ),
+                  ),
                 ),
               ],
             ),
