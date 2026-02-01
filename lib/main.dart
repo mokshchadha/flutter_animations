@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animations/example1.dart';
 import 'package:flutter_animations/example2.dart';
 import 'package:flutter_animations/example4.dart';
+import 'package:flutter_animations/example5.dart';
 
 void main() {
   runApp(const MyApp());
@@ -61,6 +62,6 @@ class _MyHomePageState extends State<MyHomePage>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: ButtonToExample4()));
+    return Scaffold(body: Center(child: Example5()));
   }
 }
